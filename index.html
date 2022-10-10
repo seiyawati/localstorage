@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>WebStrage API</title>
+  <script type="text/javascript">
+    function init() {
+      var oldData = localStorage.getItem('info');
+      if(oldData) {
+        var realData = JSON.parse(oldData);
+        document.querySelector("#name").value = realData.name;
+        document.querySelector("#address").value = realData.address;
+        document.querySelector("#telno").value = realData.telno;
+      }
+
+      document.querySelector('#form').addEventListener('input',
+        function() {
+          var data = {
+            name: document.querySelector('#name').value,
+            address: document.querySelector('#address').value,
+            telno: document.querySelector('#telno').value,
+          };
+          localStorage.setItem('info', JSON.stringify(data));
+
+          var nowDate = localStorage.getItem('info');
+          var realData = JSON.parse(nowDate);
+          val = realData.name + " " + realData.address + " " + realData.telno;
+          document.querySelector('#result').innerHTML = val;
+        }
+      )
+    }
+  </script>
+</head>
+<body onload="init()">
+  <form id="form">
+    <label for="name">
+      名前
+      <input type="text" name="name" id="name">
+    </label>
+    <label for="name">
+      住所
+      <input type="text" name="address" id="address">
+    </label>
+    <label for="name">
+      電話番号
+      <input type="text" name="telno" id="telno">
+    </label>
+    <div id="result"></div>
+  </form>
+</html>
